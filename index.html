@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="it" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lunarium — Horologium Lunae</title>
+    <meta
+      name="description"
+      content="Interactive lunar calendar: today's moon phase, next full moon and new moon dates, with Latin quotations and NASA imagery."
+    />
+    <meta
+      name="keywords"
+      content="moon phase today, lunar calendar, full moon, new moon, moon tracker, lunar phases, NASA moon images"
+    />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#06080f" />
+    <link rel="canonical" href="https://negimatare.github.io/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:url" content="https://negimatare.github.io/" />
+    <meta property="og:site_name" content="Lunarium" />
+    <meta
+      property="og:title"
+      content="Lunarium — Horologium Lunae"
+    />
+    <meta
+      property="og:description"
+      content="Interactive lunar calendar: today's moon phase, next full moon and new moon dates, with Latin quotations and NASA imagery."
+    />
+    <!-- Twitter (falls back to OG, only card type needed) -->
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Favicons -->
+    <link rel="icon" href="assets/favicon.ico" sizes="32x32" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/icon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/icon-32x32.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="assets/site.webmanifest" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Cinzel:wght@400;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link rel="stylesheet" href="main.css" />
+  </head>
+
+  <body>
+    <div class="stars" id="stars" aria-hidden="true"></div>
+
+    <nav class="sidebar" id="sidebar" aria-label="Phases lunae">
+      <div class="sidebar-header">
+        <span class="sidebar-subtitle">Lunar Explorer</span>
+      </div>
+      <ul class="phase-list" id="phase-list" role="list"></ul>
+    </nav>
+
+    <main class="main">
+      <section class="moon-info" aria-label="De phase lunae">
+        <div class="info-top">
+          <span class="info-overline">Lunar Explorer</span>
+          <time class="info-label" id="today-date" datetime=""></time>
+        </div>
+
+        <h1 class="phase-name" id="phase-name">&mdash;</h1>
+
+        <blockquote class="latin-sentence" id="latin-sentence">
+          &mdash;
+        </blockquote>
+
+        <p class="phase-description" id="phase-description">&mdash;</p>
+
+        <div class="next-events" role="group" aria-label="Phases proximae">
+          <div class="event-card">
+            <span class="event-icon" aria-hidden="true">&#127761;</span>
+            <div>
+              <span class="event-label" id="label-new">Novilunium Proximum</span>
+              <time
+                class="event-date"
+                id="next-new"
+                datetime=""
+                aria-labelledby="label-new"
+                >&mdash;</time
+              >
+            </div>
+          </div>
+          <div class="event-card">
+            <span class="event-icon" aria-hidden="true">&#127765;</span>
+            <div>
+              <span class="event-label" id="label-full">Plenilunium Proximum</span>
+              <time
+                class="event-date"
+                id="next-full"
+                datetime=""
+                aria-labelledby="label-full"
+                >&mdash;</time
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <figure class="moon-stage">
+        <div class="moon-glow" aria-hidden="true"></div>
+        <div class="moon-container">
+          <img
+            id="moon-image"
+            src=""
+            alt="Phase lunae hodiernae"
+            width="600"
+            height="600"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </figure>
+    </main>
+
+    <noscript>
+      <style>
+        .moon-info, .sidebar { display: none; }
+      </style>
+      <div style="padding: 3rem; text-align: center; color: #c8cce0;">
+        <h1>Lunarium</h1>
+        <p>
+          Interactive lunar calendar: today's moon phase, next full moon
+          and new moon dates, with Latin quotations and NASA imagery.
+        </p>
+        <p>Please enable JavaScript to view this site.</p>
+      </div>
+    </noscript>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Lunarium",
+        "url": "https://negimatare.github.io/",
+        "description": "Interactive lunar calendar: today's moon phase, next full moon and new moon dates, with Latin quotations and NASA imagery.",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "All",
+        "inLanguage": ["en", "la"],
+        "author": {
+          "@type": "Person",
+          "name": "negimatare",
+          "url": "https://github.com/negimatare"
+        }
+      }
+    </script>
+
+    <script src="main.js"></script>
+  </body>
+</html>
