@@ -14,11 +14,10 @@ A cinematic moon phase tracker hosted on GitHub Pages.
 
 ## Tech
 
-- Vanilla JavaScript -- no frameworks, no libraries
-- Pure CSS with custom properties, animations, and responsive breakpoints
 - Moon phase calculated from the synodic month (29.53 days) using a J2000.0 reference
-- Moon images from [NASA Scientific Visualization Studio](https://svs.gsfc.nasa.gov/5048), converted to local WebP
+- Moon images from **NASA Scientific Visualization Studio**
 
-## License
+## Credits
 
-Moon imagery courtesy of NASA/Goddard Space Flight Center Scientific Visualization Studio.
+- Moon imagery courtesy of NASA/Goddard Space Flight Center Scientific Visualization Studio.
+- [Moon icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/moon)
