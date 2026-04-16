@@ -304,10 +304,11 @@ body {
 }
 
 .moon-container img {
-  width: 100%;
+  width: 106.5%;
   height: 100%;
   object-fit: cover;
   display: block;
+  margin-left: -3%;
 }
 
 /* ── Responsive ────────────────────────────── */
@@ -343,7 +344,7 @@ body {
   }
 
   .moon-container {
-    width: clamp(400px, 125vw, 700px);
+    width: clamp(400px, 100vw, 700px);
     height: clamp(400px, 100vw, 700px);
   }
 }
