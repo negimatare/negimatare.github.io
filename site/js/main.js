@@ -1,26 +1,4 @@
-"use strict";
-
-/* ── Moon phase calculation ────────────────────────────── */
-
-var SYNODIC_MONTH = 29.53058770576;
-var REF_MS = Date.UTC(2000, 0, 6, 18, 14, 0);
-
-/**
- * Returns the moon age in days (0 = new moon, ~14.76 = full moon).
- * Uses a known new-moon reference: 2000-01-06 18:14 UTC (astronomical).
- */
-function moonAge(date) {
-  var diff = (date.getTime() - REF_MS) / 86400000;
-  return ((diff % SYNODIC_MONTH) + SYNODIC_MONTH) % SYNODIC_MONTH;
-}
-
-/**
- * Returns the phase index (0-7) for a given date.
- */
-function getPhaseIndex(date) {
-  var age = moonAge(date);
-  return Math.floor((age / SYNODIC_MONTH) * 8 + 0.5) % 8;
-}
+import { phaseIndex, nextEvent } from "./lunar.js";
 
 /* ── Phase data ────────────────────────────────────────── */
 
@@ -91,33 +69,9 @@ var PHASES = [
   },
 ];
 
-/* Moon images (local WebP, converted from NASA SVS originals) */
-var MOON_IMAGES = [
-  "assets/moon/new_moon.webp",
-  "assets/moon/waxing_crescent.webp",
-  "assets/moon/first_quarter.webp",
-  "assets/moon/waxing_gibbous.webp",
-  "assets/moon/full_moon.webp",
-  "assets/moon/waning_gibbous.webp",
-  "assets/moon/last_quarter.webp",
-  "assets/moon/waning_crescent.webp",
-];
-
-/* ── Find the next occurrence of a specific phase ──────── */
-
-function findNextPhase(targetIndex, fromDate) {
-  var d = new Date(fromDate);
-  for (var i = 1; i <= 45; i++) {
-    d.setDate(d.getDate() + 1);
-    if (getPhaseIndex(d) === targetIndex) return new Date(d);
-  }
-  return null;
-}
-
 /* ── Date formatting ───────────────────────────────────── */
 
 function toISODate(d) {
-  if (!d) return "";
   return d.getFullYear() + "-" +
     String(d.getMonth() + 1).padStart(2, "0") + "-" +
     String(d.getDate()).padStart(2, "0");
@@ -126,8 +80,8 @@ function toISODate(d) {
 var DATE_LONG = { day: "numeric", month: "long", year: "numeric" };
 var DATE_FULL = { weekday: "long", day: "numeric", month: "long", year: "numeric" };
 
-function formatDate(d) {
-  return d ? d.toLocaleDateString("it-IT", DATE_LONG) : "\u2014";
+function formatDate(d, timeZone) {
+  return d.toLocaleDateString("it-IT", Object.assign({ timeZone: timeZone }, DATE_LONG));
 }
 
 function formatDateFull(d) {
@@ -190,6 +144,7 @@ function buildSidebar() {
     var main = document.createTextNode(p.italian);
     var sub = document.createElement("span");
     sub.className = "phase-item-sub";
+    sub.lang = "la";
     sub.textContent = p.latin;
 
     label.appendChild(main);
@@ -206,20 +161,34 @@ function updateSidebarActive(index) {
   for (var i = 0; i < sidebarItems.length; i++) {
     if (i === index) {
       sidebarItems[i].classList.add("active");
+      sidebarItems[i].setAttribute("aria-current", "true");
     } else {
       sidebarItems[i].classList.remove("active");
+      sidebarItems[i].removeAttribute("aria-current");
     }
   }
 }
 
 /* ── Render ─────────────────────────────────────────────── */
 
+function renderEvent(el, event, timeZone) {
+  if (event.isToday) {
+    el.textContent = "Hodie";
+    el.lang = "la";
+  } else {
+    el.textContent = formatDate(event.instant, timeZone);
+    el.removeAttribute("lang");
+  }
+  el.setAttribute("datetime", event.localDate);
+}
+
 function render() {
   var now = new Date();
-  var index = getPhaseIndex(now);
+  var index = phaseIndex(now);
   var phase = PHASES[index];
 
-  $moonImage.src = MOON_IMAGES[index];
+  $moonImage.src = "assets/moon/" + phase.key + ".webp";
+  $moonImage.alt = "La Luna oggi: " + phase.italian;
 
   $todayDate.textContent = formatDateFull(now);
   $todayDate.setAttribute("datetime", toISODate(now));
@@ -228,27 +197,9 @@ function render() {
   $latinSentence.textContent = phase.sentence;
   $phaseDescription.textContent = phase.description;
 
-  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-  /* New moon (index 0) */
-  if (index === 0) {
-    $nextNew.textContent = "Hodie";
-    $nextNew.setAttribute("datetime", toISODate(today));
-  } else {
-    var nn = findNextPhase(0, today);
-    $nextNew.textContent = formatDate(nn);
-    $nextNew.setAttribute("datetime", toISODate(nn));
-  }
-
-  /* Full moon (index 4) */
-  if (index === 4) {
-    $nextFull.textContent = "Hodie";
-    $nextFull.setAttribute("datetime", toISODate(today));
-  } else {
-    var nf = findNextPhase(4, today);
-    $nextFull.textContent = formatDate(nf);
-    $nextFull.setAttribute("datetime", toISODate(nf));
-  }
+  var timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  renderEvent($nextNew, nextEvent("new", now, timeZone), timeZone);
+  renderEvent($nextFull, nextEvent("full", now, timeZone), timeZone);
 
   updateSidebarActive(index);
 }

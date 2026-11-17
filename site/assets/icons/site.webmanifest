@@ -1,6 +1,9 @@
 {
   "name": "Lunarium",
   "short_name": "Lunarium",
+  "description": "Calendario lunare interattivo: la fase della Luna di oggi e le date del prossimo plenilunio e novilunio.",
+  "lang": "it",
+  "dir": "ltr",
   "icons": [
     {
       "src": "icon-512x512.png",

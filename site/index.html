@@ -3,23 +3,33 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests"
+    />
 
     <title>Lunarium — Horologium Lunae</title>
     <meta
       name="description"
-      content="Interactive lunar calendar: today's moon phase, next full moon and new moon dates, with Latin quotations and NASA imagery."
+      content="Calendario lunare interattivo: la fase della Luna di oggi, le date del prossimo plenilunio e novilunio, con motti latini e immagini della NASA."
     />
     <meta
       name="keywords"
-      content="moon phase today, lunar calendar, full moon, new moon, moon tracker, lunar phases, NASA moon images"
+      content="fase lunare oggi, calendario lunare, plenilunio, novilunio, luna piena, luna nuova, fasi lunari, immagini NASA della Luna"
     />
+    <meta name="author" content="negimatare" />
+    <meta name="application-name" content="Lunarium" />
+    <meta name="apple-mobile-web-app-title" content="Lunarium" />
+    <meta name="robots" content="index, follow" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="format-detection" content="telephone=no, date=no" />
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#06080f" />
     <link rel="canonical" href="https://negimatare.github.io/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="en_GB" />
+    <meta property="og:locale" content="it_IT" />
     <meta property="og:url" content="https://negimatare.github.io/" />
     <meta property="og:site_name" content="Lunarium" />
     <meta
@@ -28,78 +38,84 @@
     />
     <meta
       property="og:description"
-      content="Interactive lunar calendar: today's moon phase, next full moon and new moon dates, with Latin quotations and NASA imagery."
+      content="Calendario lunare interattivo: la fase della Luna di oggi, le date del prossimo plenilunio e novilunio, con motti latini e immagini della NASA."
     />
     <!-- Twitter (falls back to OG, only card type needed) -->
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary" />
 
     <!-- Favicons -->
-    <link rel="icon" href="assets/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="assets/icons/favicon.ico" sizes="32x32" />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="assets/icon-16x16.png"
+      href="assets/icons/icon-16x16.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="assets/icon-32x32.png"
+      href="assets/icons/icon-32x32.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="assets/apple-touch-icon.png"
+      href="assets/icons/apple-touch-icon.png"
     />
-    <link rel="manifest" href="assets/site.webmanifest" />
+    <link rel="manifest" href="assets/icons/site.webmanifest" />
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Cinzel:wght@400;700&display=swap"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
+      rel="preload"
+      href="assets/fonts/inter-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
-    <link rel="stylesheet" href="main.css" />
+    <link
+      rel="preload"
+      href="assets/fonts/cinzel-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <noscript><link rel="stylesheet" href="css/noscript.css" /></noscript>
   </head>
 
   <body>
     <div class="stars" id="stars" aria-hidden="true"></div>
 
-    <nav class="sidebar" id="sidebar" aria-label="Phases lunae">
+    <nav class="sidebar" id="sidebar" aria-label="Fasi lunari">
       <div class="sidebar-header">
-        <span class="sidebar-subtitle">Lunar Explorer</span>
+        <span class="sidebar-subtitle" lang="la">Horologium Lunae</span>
       </div>
       <ul class="phase-list" id="phase-list" role="list"></ul>
     </nav>
 
     <main class="main">
-      <section class="moon-info" aria-label="De phase lunae">
+      <section class="moon-info" aria-label="Fase lunare di oggi">
         <div class="info-top">
-          <span class="info-overline">Lunar Explorer</span>
-          <time class="info-label" id="today-date" datetime=""></time>
+          <span class="info-overline" lang="la">Horologium Lunae</span>
+          <time class="info-label" id="today-date"></time>
         </div>
 
         <h1 class="phase-name" id="phase-name">&mdash;</h1>
 
-        <blockquote class="latin-sentence" id="latin-sentence">
+        <blockquote class="latin-sentence" id="latin-sentence" lang="la">
           &mdash;
         </blockquote>
 
         <p class="phase-description" id="phase-description">&mdash;</p>
 
-        <div class="next-events" role="group" aria-label="Phases proximae">
+        <div class="next-events" role="group" aria-label="Prossime fasi">
           <div class="event-card">
             <span class="event-icon" aria-hidden="true">&#127761;</span>
             <div>
-              <span class="event-label" id="label-new">Novilunium Proximum</span>
+              <span class="event-label" id="label-new" lang="la">Novilunium Proximum</span>
               <time
                 class="event-date"
                 id="next-new"
-                datetime=""
                 aria-labelledby="label-new"
                 >&mdash;</time
               >
@@ -108,11 +124,10 @@
           <div class="event-card">
             <span class="event-icon" aria-hidden="true">&#127765;</span>
             <div>
-              <span class="event-label" id="label-full">Plenilunium Proximum</span>
+              <span class="event-label" id="label-full" lang="la">Plenilunium Proximum</span>
               <time
                 class="event-date"
                 id="next-full"
-                datetime=""
                 aria-labelledby="label-full"
                 >&mdash;</time
               >
@@ -126,10 +141,9 @@
         <div class="moon-container">
           <img
             id="moon-image"
-            src=""
-            alt="Phase lunae hodiernae"
-            width="600"
-            height="600"
+            alt="La Luna nella fase di oggi"
+            width="1000"
+            height="1000"
             decoding="async"
             fetchpriority="high"
           />
@@ -138,16 +152,14 @@
     </main>
 
     <noscript>
-      <style>
-        .moon-info, .sidebar { display: none; }
-      </style>
-      <div style="padding: 3rem; text-align: center; color: #c8cce0;">
+      <div class="noscript-message">
         <h1>Lunarium</h1>
         <p>
-          Interactive lunar calendar: today's moon phase, next full moon
-          and new moon dates, with Latin quotations and NASA imagery.
+          Calendario lunare interattivo: la fase della Luna di oggi, le date
+          del prossimo plenilunio e novilunio, con motti latini e immagini
+          della NASA.
         </p>
-        <p>Please enable JavaScript to view this site.</p>
+        <p>Attiva JavaScript per vedere il sito.</p>
       </div>
     </noscript>
 
@@ -157,10 +169,11 @@
         "@type": "WebApplication",
         "name": "Lunarium",
         "url": "https://negimatare.github.io/",
-        "description": "Interactive lunar calendar: today's moon phase, next full moon and new moon dates, with Latin quotations and NASA imagery.",
+        "alternateName": "Horologium Lunae",
+        "description": "Calendario lunare interattivo: la fase della Luna di oggi, le date del prossimo plenilunio e novilunio, con motti latini e immagini della NASA.",
         "applicationCategory": "UtilityApplication",
         "operatingSystem": "All",
-        "inLanguage": ["en", "la"],
+        "inLanguage": ["it", "la"],
         "author": {
           "@type": "Person",
           "name": "negimatare",
@@ -169,6 +182,6 @@
       }
     </script>
 
-    <script src="main.js"></script>
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>

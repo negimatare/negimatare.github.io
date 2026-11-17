@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tests/lunar.test.js && node tests/next-event.test.js && node tests/assets.test.js"
+  }
+}
