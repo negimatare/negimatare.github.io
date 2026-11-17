@@ -144,6 +144,7 @@ function buildSidebar() {
     var main = document.createTextNode(p.italian);
     var sub = document.createElement("span");
     sub.className = "phase-item-sub";
+    sub.lang = "la";
     sub.textContent = p.latin;
 
     label.appendChild(main);
@@ -169,7 +170,13 @@ function updateSidebarActive(index) {
 /* ── Render ─────────────────────────────────────────────── */
 
 function renderEvent(el, event) {
-  el.textContent = event.isToday ? "Hodie" : formatDate(event.instant);
+  if (event.isToday) {
+    el.textContent = "Hodie";
+    el.lang = "la";
+  } else {
+    el.textContent = formatDate(event.instant);
+    el.removeAttribute("lang");
+  }
   el.setAttribute("datetime", event.localDate);
 }
 
@@ -179,6 +186,7 @@ function render() {
   var phase = PHASES[index];
 
   $moonImage.src = "assets/moon/" + phase.key + ".webp";
+  $moonImage.alt = "La Luna oggi: " + phase.italian;
 
   $todayDate.textContent = formatDateFull(now);
   $todayDate.setAttribute("datetime", toISODate(now));
