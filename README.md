@@ -59,11 +59,11 @@ The site speaks Italian, with Latin wherever the old astronomers would have used
 
 ```
 site/              everything GitHub Pages publishes
-  index.html       Italian metadata, CSP
+  index.html       Italian metadata, CSP, link preview
   css/             main.css, noscript.css
   js/main.js       the page: sidebar, today's phase, the two event cards
   js/lunar.js      the astronomy: phase index, true new and full moons
-  assets/          moon/ (NASA frames), fonts/ (Inter, Cinzel), icons/
+  assets/          moon/ (NASA frames), fonts/ (Inter, Cinzel), icons/, social/
 tests/             node:test: phase pinning, USNO dates in several timezones, moon images
 docs/readme/       images for this README
 .github/workflows/ pages.yml (test, then deploy site/), codeql.yml
