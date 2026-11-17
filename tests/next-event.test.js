@@ -31,16 +31,16 @@ const USNO = {
 };
 
 const DAY_MS = 86400000;
-const TWO_MINUTES_MS = 120000;
+const ONE_MINUTE_MS = 60000;
 const localDay = (date, timeZone) =>
   new Intl.DateTimeFormat("en-CA", { timeZone, year: "numeric", month: "2-digit", day: "2-digit" }).format(date);
 
 for (const kind of ["new", "full"]) {
-  test(`next ${kind} moon is within 2 minutes of USNO, 2025-2027`, () => {
+  test(`next ${kind} moon is within a minute of USNO, 2025-2027`, () => {
     for (const iso of USNO[kind]) {
       const event = new Date(iso);
       const { instant } = lunar.nextEvent(kind, new Date(event - 3 * DAY_MS), "UTC");
-      assert.ok(Math.abs(instant - event) <= TWO_MINUTES_MS, `${iso}: got ${instant.toISOString()}`);
+      assert.ok(Math.abs(instant - event) <= ONE_MINUTE_MS, `${iso}: got ${instant.toISOString()}`);
     }
   });
 
