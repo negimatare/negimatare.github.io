@@ -1,3 +1,19 @@
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 300 600;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Cinzel";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../assets/fonts/cinzel-latin.woff2") format("woff2");
+}
+
 *,
 *::before,
 *::after {
@@ -367,4 +383,10 @@ body {
   .phase-description {
     display: none;
   }
+}
+
+.noscript-message {
+  padding: 3rem;
+  text-align: center;
+  color: #c8cce0;
 }

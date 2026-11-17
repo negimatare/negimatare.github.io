@@ -3,6 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests"
+    />
 
     <title>Lunarium — Horologium Lunae</title>
     <meta
@@ -55,15 +59,22 @@
     <link rel="manifest" href="assets/icons/site.webmanifest" />
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Cinzel:wght@400;700&display=swap"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
+      rel="preload"
+      href="assets/fonts/inter-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/cinzel-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
     <link rel="stylesheet" href="css/main.css" />
+    <noscript><link rel="stylesheet" href="css/noscript.css" /></noscript>
   </head>
 
   <body>
@@ -138,10 +149,7 @@
     </main>
 
     <noscript>
-      <style>
-        .moon-info, .sidebar { display: none; }
-      </style>
-      <div style="padding: 3rem; text-align: center; color: #c8cce0;">
+      <div class="noscript-message">
         <h1>Lunarium</h1>
         <p>
           Interactive lunar calendar: today's moon phase, next full moon
