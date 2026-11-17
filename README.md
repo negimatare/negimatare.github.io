@@ -64,7 +64,7 @@ site/              everything GitHub Pages publishes
   js/main.js       the page: sidebar, today's phase, the two event cards
   js/lunar.js      the astronomy: phase index, true new and full moons
   assets/          moon/ (NASA frames), fonts/ (Inter, Cinzel), icons/, social/
-tests/             node --test: phase pinning, USNO dates in several timezones
+tests/             node:test: phase pinning, USNO dates in several timezones
 docs/readme/       images for this README
 .github/workflows/ pages.yml (test, then deploy site/), codeql.yml
 ```
@@ -75,7 +75,7 @@ docs/readme/       images for this README
 <summary><b>Development</b></summary>
 
 ```sh
-npm test                                        # node --test, no dependencies
+npm test                                        # node:test, no dependencies
 python3 -m http.server 8000 --directory site    # then open http://localhost:8000
 ```
 
