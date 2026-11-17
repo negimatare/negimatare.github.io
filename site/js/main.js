@@ -1,4 +1,4 @@
-import { phaseIndex, findNextPhase } from "./lunar.js";
+import { phaseIndex, nextEvent } from "./lunar.js";
 
 /* ── Phase data ────────────────────────────────────────── */
 
@@ -72,7 +72,6 @@ var PHASES = [
 /* ── Date formatting ───────────────────────────────────── */
 
 function toISODate(d) {
-  if (!d) return "";
   return d.getFullYear() + "-" +
     String(d.getMonth() + 1).padStart(2, "0") + "-" +
     String(d.getDate()).padStart(2, "0");
@@ -82,7 +81,7 @@ var DATE_LONG = { day: "numeric", month: "long", year: "numeric" };
 var DATE_FULL = { weekday: "long", day: "numeric", month: "long", year: "numeric" };
 
 function formatDate(d) {
-  return d ? d.toLocaleDateString("it-IT", DATE_LONG) : "\u2014";
+  return d.toLocaleDateString("it-IT", DATE_LONG);
 }
 
 function formatDateFull(d) {
@@ -169,6 +168,11 @@ function updateSidebarActive(index) {
 
 /* ── Render ─────────────────────────────────────────────── */
 
+function renderEvent(el, event) {
+  el.textContent = event.isToday ? "Hodie" : formatDate(event.instant);
+  el.setAttribute("datetime", event.localDate);
+}
+
 function render() {
   var now = new Date();
   var index = phaseIndex(now);
@@ -183,27 +187,9 @@ function render() {
   $latinSentence.textContent = phase.sentence;
   $phaseDescription.textContent = phase.description;
 
-  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-  /* New moon (index 0) */
-  if (index === 0) {
-    $nextNew.textContent = "Hodie";
-    $nextNew.setAttribute("datetime", toISODate(today));
-  } else {
-    var nn = findNextPhase(0, today);
-    $nextNew.textContent = formatDate(nn);
-    $nextNew.setAttribute("datetime", toISODate(nn));
-  }
-
-  /* Full moon (index 4) */
-  if (index === 4) {
-    $nextFull.textContent = "Hodie";
-    $nextFull.setAttribute("datetime", toISODate(today));
-  } else {
-    var nf = findNextPhase(4, today);
-    $nextFull.textContent = formatDate(nf);
-    $nextFull.setAttribute("datetime", toISODate(nf));
-  }
+  var timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  renderEvent($nextNew, nextEvent("new", now, timeZone));
+  renderEvent($nextFull, nextEvent("full", now, timeZone));
 
   updateSidebarActive(index);
 }
