@@ -12,10 +12,6 @@ Today's phase, the next new and full moon, and a Latin motto for every night.
 ![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-6b7194?style=flat-square)
 ![CSP](https://img.shields.io/badge/CSP-self%20only-c8cce0?style=flat-square)
 
-### [Open Lunarium →](https://negimatare.github.io/)
-
-<img src="docs/readme/screenshot.webp" alt="Lunarium on 17 November 2026: Primo quarto, with the next new moon on 9 December and the next full moon on 24 November" width="100%">
-
 </div>
 
 <br>
@@ -31,28 +27,28 @@ The site speaks Italian, with Latin wherever the old astronomers would have used
 
 ## The eight phases
 
-| | Fase | Latin | Motto |
-|:-:|---|---|---|
-| <img src="site/assets/moon/new_moon.webp" width="64"> | **Novilunio** | Novilunium, Luna Nova | *Ex nihilo lux oritur.* |
-| <img src="site/assets/moon/waxing_crescent.webp" width="64"> | **Falce crescente** | Luna Crescens | *Crescit occulta velut arbor aevo.* |
-| <img src="site/assets/moon/first_quarter.webp" width="64"> | **Primo quarto** | Prima Quadrans | *Dimidium facti, qui coepit, habet.* |
-| <img src="site/assets/moon/waxing_gibbous.webp" width="64"> | **Gibbosa crescente** | Luna Gibba Crescens | *Paulatim summa petuntur.* |
-| <img src="site/assets/moon/full_moon.webp" width="64"> | **Plenilunio** | Luna Plena | *Plena refulsit Luna, noctis regina.* |
-| <img src="site/assets/moon/waning_gibbous.webp" width="64"> | **Gibbosa calante** | Luna Gibba Decrescens | *Post lucem tenebrae, sed lux redit.* |
-| <img src="site/assets/moon/last_quarter.webp" width="64"> | **Ultimo quarto** | Ultima Quadrans | *Nox praeterit, dies autem adpropinquat.* |
-| <img src="site/assets/moon/waning_crescent.webp" width="64"> | **Falce calante** | Luna Decrescens | *Finis unius principium alterius est.* |
+<table>
+<tr><td align="center"><img src="site/assets/moon/new_moon.webp" width="64"></td><td><b>Novilunio</b></td><td>Novilunium, Luna Nova</td><td><i>Ex nihilo lux oritur.</i></td></tr>
+<tr><td align="center"><img src="site/assets/moon/waxing_crescent.webp" width="64"></td><td><b>Falce crescente</b></td><td>Luna Crescens</td><td><i>Crescit occulta velut arbor aevo.</i></td></tr>
+<tr><td align="center"><img src="site/assets/moon/first_quarter.webp" width="64"></td><td><b>Primo quarto</b></td><td>Prima Quadrans</td><td><i>Dimidium facti, qui coepit, habet.</i></td></tr>
+<tr><td align="center"><img src="site/assets/moon/waxing_gibbous.webp" width="64"></td><td><b>Gibbosa crescente</b></td><td>Luna Gibba Crescens</td><td><i>Paulatim summa petuntur.</i></td></tr>
+<tr><td align="center"><img src="site/assets/moon/full_moon.webp" width="64"></td><td><b>Plenilunio</b></td><td>Luna Plena</td><td><i>Plena refulsit Luna, noctis regina.</i></td></tr>
+<tr><td align="center"><img src="site/assets/moon/waning_gibbous.webp" width="64"></td><td><b>Gibbosa calante</b></td><td>Luna Gibba Decrescens</td><td><i>Post lucem tenebrae, sed lux redit.</i></td></tr>
+<tr><td align="center"><img src="site/assets/moon/last_quarter.webp" width="64"></td><td><b>Ultimo quarto</b></td><td>Ultima Quadrans</td><td><i>Nox praeterit, dies autem adpropinquat.</i></td></tr>
+<tr><td align="center"><img src="site/assets/moon/waning_crescent.webp" width="64"></td><td><b>Falce calante</b></td><td>Luna Decrescens</td><td><i>Finis unius principium alterius est.</i></td></tr>
+</table>
 
 ---
 
 ## How it keeps time
 
-| | |
-|---|---|
-| **Next new and full moon** | Computed from the true lunar phases (Meeus, *Astronomical Algorithms*, ch. 49), not an average month. Tested against the US Naval Observatory's 74 new and full moons of 2025–2027: the worst miss is under a minute. |
-| **Your calendar, your day** | Dates follow your own timezone. The full moon of 24 November 2026, 14:53 UTC, is the 24th in Rome and Honolulu and already the 25th in Kiribati. |
-| ***Hodie*** | Shown for the whole day of the event, the evening after it included. |
-| **Today's phase** | One of eight phases from the moon's age, each 3.7 days wide. |
-| **Privacy** | No cookies, no analytics, no third-party requests. Fonts are served by the site, and a strict Content Security Policy allows nothing else. |
+<table>
+<tr><td><b>Next new and full moon</b></td><td>Computed from the true lunar phases (Meeus, <i>Astronomical Algorithms</i>, ch. 49), not an average month. Tested against the US Naval Observatory's 74 new and full moons of 2025–2027: the worst miss is under a minute.</td></tr>
+<tr><td><b>Your calendar, your day</b></td><td>Dates follow your own timezone. The full moon of 24 November 2026, 14:53 UTC, is the 24th in Rome and Honolulu and already the 25th in Kiribati.</td></tr>
+<tr><td><b><i>Hodie</i></b></td><td>Shown for the whole day of the event, the evening after it included.</td></tr>
+<tr><td><b>Today's phase</b></td><td>One of eight phases from the moon's age, each 3.7 days wide.</td></tr>
+<tr><td><b>Privacy</b></td><td>No cookies, no analytics, no third-party requests. Fonts are served by the site, and a strict Content Security Policy allows nothing else.</td></tr>
+</table>
 
 ---
 
