@@ -40,8 +40,23 @@
       property="og:description"
       content="Calendario lunare interattivo: la fase della Luna di oggi, le date del prossimo plenilunio e novilunio, con motti latini e immagini della NASA."
     />
-    <!-- Twitter (falls back to OG, only card type needed) -->
-    <meta name="twitter:card" content="summary" />
+    <meta
+      property="og:image"
+      content="https://negimatare.github.io/assets/social/preview.jpg"
+    />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta
+      property="og:image:alt"
+      content="Lunarium, Horologium Lunae: una Luna piena e una fila di fasi lunari su un cielo stellato, sopra un orizzonte lunare"
+    />
+    <!-- Twitter (falls back to OG except for the image alt) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image:alt"
+      content="Lunarium, Horologium Lunae: una Luna piena e una fila di fasi lunari su un cielo stellato, sopra un orizzonte lunare"
+    />
 
     <!-- Favicons -->
     <link rel="icon" href="assets/icons/favicon.ico" sizes="32x32" />
@@ -174,6 +189,7 @@
         "applicationCategory": "UtilityApplication",
         "operatingSystem": "All",
         "inLanguage": ["it", "la"],
+        "image": "https://negimatare.github.io/assets/social/preview.jpg",
         "author": {
           "@type": "Person",
           "name": "negimatare",
