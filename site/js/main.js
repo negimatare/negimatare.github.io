@@ -1,26 +1,4 @@
-"use strict";
-
-/* ── Moon phase calculation ────────────────────────────── */
-
-var SYNODIC_MONTH = 29.53058770576;
-var REF_MS = Date.UTC(2000, 0, 6, 18, 14, 0);
-
-/**
- * Returns the moon age in days (0 = new moon, ~14.76 = full moon).
- * Uses a known new-moon reference: 2000-01-06 18:14 UTC (astronomical).
- */
-function moonAge(date) {
-  var diff = (date.getTime() - REF_MS) / 86400000;
-  return ((diff % SYNODIC_MONTH) + SYNODIC_MONTH) % SYNODIC_MONTH;
-}
-
-/**
- * Returns the phase index (0-7) for a given date.
- */
-function getPhaseIndex(date) {
-  var age = moonAge(date);
-  return Math.floor((age / SYNODIC_MONTH) * 8 + 0.5) % 8;
-}
+import { phaseIndex, findNextPhase } from "./lunar.js";
 
 /* ── Phase data ────────────────────────────────────────── */
 
@@ -90,29 +68,6 @@ var PHASES = [
       "La falce calante precede il novilunio: \u00e8 la fase meno luminosa, visibile prima dell\u2019alba nel cielo orientale.",
   },
 ];
-
-/* Moon images (local WebP, converted from NASA SVS originals) */
-var MOON_IMAGES = [
-  "assets/moon/new_moon.webp",
-  "assets/moon/waxing_crescent.webp",
-  "assets/moon/first_quarter.webp",
-  "assets/moon/waxing_gibbous.webp",
-  "assets/moon/full_moon.webp",
-  "assets/moon/waning_gibbous.webp",
-  "assets/moon/last_quarter.webp",
-  "assets/moon/waning_crescent.webp",
-];
-
-/* ── Find the next occurrence of a specific phase ──────── */
-
-function findNextPhase(targetIndex, fromDate) {
-  var d = new Date(fromDate);
-  for (var i = 1; i <= 45; i++) {
-    d.setDate(d.getDate() + 1);
-    if (getPhaseIndex(d) === targetIndex) return new Date(d);
-  }
-  return null;
-}
 
 /* ── Date formatting ───────────────────────────────────── */
 
@@ -216,10 +171,10 @@ function updateSidebarActive(index) {
 
 function render() {
   var now = new Date();
-  var index = getPhaseIndex(now);
+  var index = phaseIndex(now);
   var phase = PHASES[index];
 
-  $moonImage.src = MOON_IMAGES[index];
+  $moonImage.src = "assets/moon/" + phase.key + ".webp";
 
   $todayDate.textContent = formatDateFull(now);
   $todayDate.setAttribute("datetime", toISODate(now));
