@@ -161,8 +161,10 @@ function updateSidebarActive(index) {
   for (var i = 0; i < sidebarItems.length; i++) {
     if (i === index) {
       sidebarItems[i].classList.add("active");
+      sidebarItems[i].setAttribute("aria-current", "true");
     } else {
       sidebarItems[i].classList.remove("active");
+      sidebarItems[i].removeAttribute("aria-current");
     }
   }
 }
