@@ -31,16 +31,16 @@ const USNO = {
 };
 
 const DAY_MS = 86400000;
-const TEN_MINUTES_MS = 600000;
+const TWO_MINUTES_MS = 120000;
 const localDay = (date, timeZone) =>
   new Intl.DateTimeFormat("en-CA", { timeZone, year: "numeric", month: "2-digit", day: "2-digit" }).format(date);
 
 for (const kind of ["new", "full"]) {
-  test(`next ${kind} moon is within 10 minutes of USNO, 2025-2027`, () => {
+  test(`next ${kind} moon is within 2 minutes of USNO, 2025-2027`, () => {
     for (const iso of USNO[kind]) {
       const event = new Date(iso);
       const { instant } = lunar.nextEvent(kind, new Date(event - 3 * DAY_MS), "UTC");
-      assert.ok(Math.abs(instant - event) <= TEN_MINUTES_MS, `${iso}: got ${instant.toISOString()}`);
+      assert.ok(Math.abs(instant - event) <= TWO_MINUTES_MS, `${iso}: got ${instant.toISOString()}`);
     }
   });
 
@@ -79,4 +79,11 @@ test("the day of the event is today for the whole day, even after the event", ()
   const dayAfter = lunar.nextEvent("full", new Date("2026-11-25T07:00Z"), "Europe/Rome");
   assert.equal(dayAfter.localDate, "2026-12-24");
   assert.equal(dayAfter.isToday, false);
+});
+
+test("today is the visitor's day, not the UTC day", () => {
+  // 2026-11-24T23:00Z is still the 24th in UTC but already 25 Nov 08:00 in Tokyo.
+  const tokyo = lunar.nextEvent("full", new Date("2026-11-24T23:00Z"), "Asia/Tokyo");
+  assert.equal(tokyo.localDate, "2026-12-24");
+  assert.equal(tokyo.isToday, false);
 });

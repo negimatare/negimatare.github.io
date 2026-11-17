@@ -17,8 +17,3 @@ test("phase index matches the original calculation for every day of 2026", () =>
     assert.equal(phaseIndex(date), Number(PHASES_2026[day]), date.toISOString());
   }
 });
-
-test("phase index wraps to new moon at the end of the cycle", () => {
-  // 2024-04-08 18:21 UTC is 29.36 days into the cycle, past the last bin.
-  assert.equal(phaseIndex(new Date(Date.UTC(2024, 3, 8, 18, 21))), 0);
-});

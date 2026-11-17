@@ -80,8 +80,8 @@ function toISODate(d) {
 var DATE_LONG = { day: "numeric", month: "long", year: "numeric" };
 var DATE_FULL = { weekday: "long", day: "numeric", month: "long", year: "numeric" };
 
-function formatDate(d) {
-  return d.toLocaleDateString("it-IT", DATE_LONG);
+function formatDate(d, timeZone) {
+  return d.toLocaleDateString("it-IT", Object.assign({ timeZone: timeZone }, DATE_LONG));
 }
 
 function formatDateFull(d) {
@@ -169,12 +169,12 @@ function updateSidebarActive(index) {
 
 /* ── Render ─────────────────────────────────────────────── */
 
-function renderEvent(el, event) {
+function renderEvent(el, event, timeZone) {
   if (event.isToday) {
     el.textContent = "Hodie";
     el.lang = "la";
   } else {
-    el.textContent = formatDate(event.instant);
+    el.textContent = formatDate(event.instant, timeZone);
     el.removeAttribute("lang");
   }
   el.setAttribute("datetime", event.localDate);
@@ -196,8 +196,8 @@ function render() {
   $phaseDescription.textContent = phase.description;
 
   var timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  renderEvent($nextNew, nextEvent("new", now, timeZone));
-  renderEvent($nextFull, nextEvent("full", now, timeZone));
+  renderEvent($nextNew, nextEvent("new", now, timeZone), timeZone);
+  renderEvent($nextFull, nextEvent("full", now, timeZone), timeZone);
 
   updateSidebarActive(index);
 }
